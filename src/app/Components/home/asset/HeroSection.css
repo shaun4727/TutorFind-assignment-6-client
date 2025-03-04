@@ -71,3 +71,13 @@
     justify-content: center !important;
   }
 }
+
+@media (max-width: 576px) {
+  .hero-section .left-section-padding {
+    padding: 15px !important;
+  }
+
+  .hero-section .right-section-padding {
+    padding-right: 15px !important;
+  }
+}

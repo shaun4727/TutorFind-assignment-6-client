@@ -67,3 +67,12 @@
     text-align: center;
   }
 }
+
+@media (max-width: 576px) {
+  .find-tutor .left-section-padding {
+    padding: 15px;
+  }
+  .find-tutor .right-section-padding {
+    padding: 15px;
+  }
+}
