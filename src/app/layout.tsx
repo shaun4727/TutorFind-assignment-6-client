@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto, Poppins } from 'next/font/google';
-import NavBar from './Components/global/NavigationBar';
+import NavBar from '@/Components/global/NavigationBar';
+import FooterSection from '@/Components/global/FooterSection';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${roboto.variable}`}>
         <NavBar />
         {children}
+        <FooterSection />
       </body>
     </html>
   );

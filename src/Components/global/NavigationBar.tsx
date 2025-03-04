@@ -1,38 +1,54 @@
+'use client';
+
 import Image from 'next/image';
-import styles from '../../page.module.css';
+import styles from '@/app/page.module.css';
 import '@/../../assets/root.css';
+import { useRouter } from 'next/navigation';
 import { ConfigProvider, Menu, MenuProps } from 'antd';
 
 type MenuItem = Required<MenuProps>['items'][number] & { route: string };
 const routes: MenuItem[] = [
   {
     label: 'Home',
-    key: 'home',
+    key: '/',
     route: '/',
   },
   {
     label: 'About Us',
     key: 'about',
-    route: '/',
+    route: '/about',
   },
   {
     label: 'Tutors',
-    key: 'tutor',
-    route: '/',
+    key: 'tutors',
+    route: '/tutors',
   },
   {
     label: 'FAQ',
     key: 'faq',
-    route: '/',
+    route: '/faq',
   },
   {
     label: 'Blog',
-    key: 'Dashboard',
-    route: '/',
+    key: 'blog',
+    route: '/blog',
+  },
+  {
+    label: 'Dashboard',
+    key: 'dashboard',
+    route: '/dashboard',
   },
 ];
 
 export default function NavBar() {
+  const router = useRouter();
+  const onClick: MenuProps['onClick'] = (e) => {
+    document.title = e.key;
+    router.push(e.key);
+    // if (e.key == 'logout') {
+
+    // }
+  };
   return (
     <>
       <div className={styles.topNav}>
@@ -77,7 +93,12 @@ export default function NavBar() {
             height={35}
             alt="email-logo"
           />
-          <Menu mode="horizontal" items={routes} className={styles.navStyle} />
+          <Menu
+            mode="horizontal"
+            onClick={onClick}
+            items={routes}
+            className={styles.navStyle}
+          />
         </div>
       </ConfigProvider>
     </>

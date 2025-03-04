@@ -31,6 +31,9 @@
   margin-left: 4px;
   background-color: var(--primary-nav-btn-color);
 }
+.hero-section .default-left-padding .hero-search button:hover svg {
+  color: #4096ff;
+}
 .hero-section .default-left-padding .hero-search svg {
   color: #fff;
 }
