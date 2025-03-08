@@ -13,30 +13,122 @@ import {
   Button,
   Radio,
   RadioChangeEvent,
+  CheckboxProps,
 } from 'antd';
 import '../assets/SideBar.css';
 import '@/../../assets/root.css';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { ExpertiseSubject, locations } from '@/utils/constants';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export default function SidebarSection() {
-  const [inputValue, setInputValue] = useState(1);
-  const [priceSort, setPriceSort] = useState(1);
+type sidebarPropType = {
+  setQueryParams: Dispatch<SetStateAction<URLSearchParams>>;
+  queryParams: URLSearchParams;
+  queryParamsSorting: URLSearchParams;
+  setQueryParamsSorting: Dispatch<SetStateAction<URLSearchParams>>;
+};
+
+export default function SidebarSection({
+  setQueryParams,
+  queryParams,
+  setQueryParamsSorting,
+  queryParamsSorting,
+}: sidebarPropType) {
+  const [inputValue, setInputValue] = useState<number>(500);
+  const [priceSort, setPriceSort] = useState<number>(1);
+  const [ratingSort, setRatingSort] = useState<number>(1);
+  const [createdAt, setCreatedAt] = useState<number>(1);
+  const [checkedValues, setCheckedValues] = useState<string[]>(['available']);
+  const searchParams = useSearchParams();
+  const [querySelfParams, setQuerySelfParams] = useState(
+    new URLSearchParams(searchParams.toString())
+  );
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const params = new URLSearchParams(queryParams.toString());
+    params.set('subject', 'mathmatics');
+    params.set('grade', 'class 7');
+    params.set('location', 'dhanmondi');
+    params.set('rating', '0');
+    params.set('rate', '500');
+    params.set('isBlocked', 'false');
+    setQuerySelfParams(params);
+  }, []);
+
+  const applySorting = () => {
+    const params = new URLSearchParams(queryParamsSorting.toString());
+    params.set('sortBy', 'hourly_rate,rating,createdAt');
+    params.set('hourly_rate', priceSort === 0 ? 'desc' : 'asc');
+    params.set('rating', ratingSort === 0 ? 'desc' : 'asc');
+    params.set('createdAt', createdAt === 0 ? 'desc' : 'asc');
+
+    setQueryParamsSorting(new URLSearchParams(params.toString()));
+  };
 
   const onChangeRange: InputNumberProps['onChange'] = (newValue) => {
     setInputValue(newValue as number);
-  };
-  const onChangeCheck: GetProp<typeof Checkbox.Group, 'onChange'> = (
-    checkedValues
-  ) => {
-    console.log('checked = ', checkedValues);
+    onChangeFilter('rate', newValue as number);
   };
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const onChangeCheckbox: GetProp<typeof Checkbox.Group, 'onChange'> = (
+    checkedValues
+  ) => {
+    setCheckedValues(checkedValues as string[]);
+
+    if (checkedValues.length) {
+      onChangeFilter('isBlocked', 'false');
+    } else {
+      onChangeFilter('isBlocked', 'true');
+    }
+  };
+  const onChangeNewProfile: GetProp<typeof Checkbox.Group, 'onChange'> = (
+    checkedValues
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sortBy', 'hourly_rate,rating,createdAt');
+
+    if (checkedValues.length) {
+      params.set('createdAt', 'desc');
+    } else {
+      params.set('createdAt', 'asc');
+    }
+    setQueryParamsSorting(new URLSearchParams(params.toString()));
   };
 
   const onChangePriceSort = (e: RadioChangeEvent) => {
-    setPriceSort(e.target.value);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sortBy', 'hourly_rate,rating,createdAt');
+    params.set('hourly_rate', e.target.value === 0 ? 'desc' : 'asc');
+
+    setQueryParamsSorting(new URLSearchParams(params.toString()));
+    // setPriceSort(e.target.value);
+  };
+  const onChangeRatingSort = (e: RadioChangeEvent) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sortBy', 'hourly_rate,rating,createdAt');
+    params.set('rating', e.target.value === 0 ? 'desc' : 'asc');
+
+    setQueryParamsSorting(new URLSearchParams(params.toString()));
+    // setRatingSort(e.target.value);
+  };
+
+  // Update queryParams state without pushing to router
+  const onChangeFilter = (query: string, value: string | number | boolean) => {
+    const params = new URLSearchParams(querySelfParams.toString());
+    params.set(query, value.toString());
+
+    setQuerySelfParams(params);
+  };
+
+  // Apply all stored filters when clicking the Search button
+  const applyFilters = () => {
+    const params = new URLSearchParams(querySelfParams.toString());
+    setQueryParams(params);
+    // router.push(`${pathname}?${queryParams.toString()}`, {
+    //   scroll: false,
+    // });
   };
 
   return (
@@ -44,52 +136,48 @@ export default function SidebarSection() {
       <h3 className="search-header">Filter Search</h3>
       <div className="filter-area">
         <h5 className="filter-title">Subject</h5>
-        <Checkbox.Group
-          style={{ width: '100%' }}
-          onChange={() => onChangeCheck}
-          className="filter-list"
-        >
-          <Row>
-            <Col span={24}>
-              <Checkbox value="A">Mathmatics</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Chemistry</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Physics</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Biology</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Accounting</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Religion</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">Bangla</Checkbox>
-            </Col>
-            <Col span={24}>
-              <Checkbox value="A">English</Checkbox>
-            </Col>
-          </Row>
-        </Checkbox.Group>
+        <div className="options filter-list">
+          <Select
+            defaultValue="mathmatics"
+            style={{ width: '100%' }}
+            onChange={(value) => onChangeFilter('subject', value)}
+            options={ExpertiseSubject}
+          />
+        </div>
+
+        <h5 className="filter-title">Class</h5>
+        <div className="options filter-list">
+          <Select
+            defaultValue="Class 7"
+            style={{ width: '100%' }}
+            onChange={(label) => onChangeFilter('grade', label)}
+            options={[
+              { value: 'Class 7', label: 'Class 7' },
+              { value: 'Class 8', label: 'Class 8' },
+              { value: 'Class 9', label: 'Class 9' },
+              { value: 'Class 10', label: 'Class 10' },
+            ]}
+          />
+        </div>
         <h5 className="filter-title">Rating</h5>
-        <Rate allowHalf defaultValue={3.5} className="filter-list" />
+        <Rate
+          allowHalf
+          defaultValue={0}
+          onChange={(value) => onChangeFilter('rating', value)}
+          className="filter-list"
+        />
 
         <h5 className="filter-title">Hourly Rate(BDT)</h5>
         <div className="range-slider filter-list">
           <Slider
-            min={1}
+            min={500}
             max={4000}
             onChange={onChangeRange}
             className="slider-component"
             value={typeof inputValue === 'number' ? inputValue : 0}
           />
           <InputNumber
-            min={1}
+            min={500}
             max={4000}
             style={{ margin: '0 16px' }}
             value={inputValue}
@@ -97,10 +185,14 @@ export default function SidebarSection() {
           />
         </div>
         <h5 className="filter-title">Availability</h5>
-        <Checkbox.Group className="filter-list">
+        <Checkbox.Group
+          className="filter-list"
+          onChange={onChangeCheckbox}
+          value={checkedValues}
+        >
           <Row>
             <Col span={24}>
-              <Checkbox value="A">In Stock</Checkbox>
+              <Checkbox value="available">Available</Checkbox>
             </Col>
           </Row>
         </Checkbox.Group>
@@ -109,39 +201,28 @@ export default function SidebarSection() {
           <Select
             defaultValue="dhanmondi"
             style={{ width: '100%' }}
-            onChange={handleChange}
-            options={[
-              { value: 'dhanmondi', label: 'Dhanmondi' },
-              { value: 'gulshan', label: 'Gulshan' },
-              { value: 'banani', label: 'Banani' },
-              { value: 'bashundhara', label: 'Bashundhara' },
-              { value: 'baridhara', label: 'Baridhara' },
-              { value: 'uttara', label: 'Uttara' },
-              { value: 'mirpur', label: 'Mirpur' },
-              { value: 'pallabi', label: 'Pallabi' },
-              { value: 'mohammadpur', label: 'Mohammadpur' },
-              { value: 'tejgaon', label: 'Tejgaon' },
-              { value: 'khilgaon', label: 'Khilgaon' },
-              { value: 'badda', label: 'Badda' },
-              { value: 'rampura', label: 'Rampura' },
-              { value: 'shyamoli', label: 'Shyamoli' },
-              { value: 'motijheel', label: 'Motijheel' },
-              { value: 'paltan', label: 'Paltan' },
-              { value: 'jatrabari', label: 'Jatrabari' },
-              { value: 'sutrapur', label: 'Sutrapur' },
-              { value: 'wary', label: 'Wari' },
-              { value: 'lalbagh', label: 'Lalbagh' },
-            ]}
+            onChange={(value) => onChangeFilter('location', value)}
+            options={locations}
           />
         </div>
       </div>
       <div className="filter-action-btn">
-        <Button block>Apply Filter</Button>
+        <Button block onClick={applyFilters}>
+          Apply Filter
+        </Button>
       </div>
       <h3 className="search-header">Sort Tutors</h3>
       <div className="filter-area">
         <h5 className="filter-title">Rating</h5>
-        <Rate allowHalf defaultValue={3.5} className="filter-list" />
+        <Radio.Group
+          name="radiogroup"
+          defaultValue={1}
+          onChange={onChangeRatingSort}
+          options={[
+            { value: 1, label: 'Low To High' },
+            { value: 0, label: 'High To Low' },
+          ]}
+        />
         <h5 className="filter-title">Pricing</h5>
         <Radio.Group
           name="radiogroup"
@@ -149,21 +230,23 @@ export default function SidebarSection() {
           onChange={onChangePriceSort}
           options={[
             { value: 1, label: 'Low To High' },
-            { value: 2, label: 'High To Low' },
+            { value: 0, label: 'High To Low' },
           ]}
         />
         <h5 className="filter-title">New Profiles</h5>
-        <Checkbox.Group className="filter-list">
+        <Checkbox.Group className="filter-list" onChange={onChangeNewProfile}>
           <Row>
             <Col span={24}>
-              <Checkbox value="A">Find New Profile</Checkbox>
+              <Checkbox value="new">Find New Profile</Checkbox>
             </Col>
           </Row>
         </Checkbox.Group>
       </div>
-      <div className="filter-action-btn">
-        <Button block>Apply Sorting</Button>
-      </div>
+      {/* <div className="filter-action-btn">
+        <Button block onClick={applySorting}>
+          Apply Sorting
+        </Button>
+      </div> */}
     </div>
   );
 }

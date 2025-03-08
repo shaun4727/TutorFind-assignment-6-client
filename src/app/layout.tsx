@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Roboto, Poppins } from 'next/font/google';
 import NavBar from '@/Components/global/NavigationBar';
 import FooterSection from '@/Components/global/FooterSection';
+import { Toaster } from 'sonner';
+import Providers from '@/providers/Providers';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -26,12 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${roboto.variable}`}>
-        <NavBar />
-        {children}
-        <FooterSection />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={`${poppins.variable} ${roboto.variable}`}>
+          <Toaster />
+          <NavBar />
+          {children}
+          <FooterSection />
+        </body>
+      </html>
+    </Providers>
   );
 }

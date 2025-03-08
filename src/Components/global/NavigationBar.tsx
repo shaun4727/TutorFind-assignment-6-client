@@ -5,43 +5,28 @@ import styles from '@/app/page.module.css';
 import '@/../../assets/root.css';
 import { useRouter } from 'next/navigation';
 import { ConfigProvider, Menu, MenuProps } from 'antd';
-
-type MenuItem = Required<MenuProps>['items'][number] & { route: string };
-const routes: MenuItem[] = [
-  {
-    label: 'Home',
-    key: '/',
-    route: '/',
-  },
-  {
-    label: 'About Us',
-    key: 'about',
-    route: '/about',
-  },
-  {
-    label: 'Tutors',
-    key: 'tutors',
-    route: '/tutors',
-  },
-  {
-    label: 'FAQ',
-    key: 'faq',
-    route: '/faq',
-  },
-  {
-    label: 'Blog',
-    key: 'blog',
-    route: '/blog',
-  },
-  {
-    label: 'Dashboard',
-    key: 'dashboard',
-    route: '/dashboard',
-  },
-];
+import {
+  basicNavRoutes,
+  AuthenticatedNavRoutes,
+  MenuItem,
+} from '@/utils/constants';
+import { useUser } from '@/context/UserContext';
+import { useEffect, useState } from 'react';
 
 export default function NavBar() {
   const router = useRouter();
+  const [navRoutes, setNavRoutes] = useState<MenuItem[]>(basicNavRoutes);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user?.userId) {
+      setNavRoutes(AuthenticatedNavRoutes);
+    } else {
+      setNavRoutes(basicNavRoutes);
+    }
+  }, [user]);
+
   const onClick: MenuProps['onClick'] = (e) => {
     document.title = e.key;
     router.push(e.key);
@@ -96,7 +81,7 @@ export default function NavBar() {
           <Menu
             mode="horizontal"
             onClick={onClick}
-            items={routes}
+            items={navRoutes}
             className={styles.navStyle}
           />
         </div>

@@ -5,6 +5,7 @@
 .detail-section .date-time {
   opacity: 0.8;
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .detail-section .blog-title {
@@ -12,13 +13,13 @@
   font-weight: 500;
   margin-bottom: 5px;
 }
-.detail-section .blog-description {
+.detail-section .blog-description p {
   font-family: var(--font-roboto), sans-serif;
   line-height: var(--description-line-height);
   opacity: 0.9;
 }
 .detail-section .blog-description .blog-button {
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
   width: 150px;
   border-radius: 0px;
   height: var(--input-btn-height);
