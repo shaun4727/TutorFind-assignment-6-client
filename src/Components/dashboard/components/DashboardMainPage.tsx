@@ -6,6 +6,8 @@ import BookingRequests from './subcomponents/BookingRequests';
 import { tutorBookingData } from '@/types';
 import { useEffect } from 'react';
 import TutorAcceptance from './subcomponents/TutorAcceptance';
+import PastBookings from './subcomponents/PastBookings';
+import PaymentHistory from './subcomponents/PaymentHistory';
 
 interface DashboardManagementProps {
   activeMenu: string;
@@ -26,6 +28,8 @@ export default function DashboardManagement({
         <BookingRequests bookings={bookings} setLoading={setLoading} />
       )}
       {activeMenu == 'tutor-acceptance' && <TutorAcceptance />}
+      {activeMenu == 'past-bookings' && <PastBookings />}
+      {activeMenu == 'payment-history' && <PaymentHistory />}
     </div>
   );
 }

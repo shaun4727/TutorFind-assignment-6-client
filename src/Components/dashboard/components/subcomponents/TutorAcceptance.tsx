@@ -38,7 +38,6 @@ export default function TutorAcceptance() {
   const onCloseDrawer = () => {
     setOpen(false);
   };
-  console.log(bookingReq);
 
   const columns: TableProps<TAcceptBookingRequest>['columns'] = [
     {
@@ -102,9 +101,10 @@ export default function TutorAcceptance() {
       const paymentDur = {
         month: Number(values.month),
         hours: Number(values.hours),
-        id: bookingReq?._id,
+        bookingRequestId: bookingReq?._id,
         hourly_rate: bookingReq?.hourly_rate as number,
-        tutorId: bookingReq?.tutor,
+        tutorId:
+          typeof bookingReq?.tutor === 'object' ? bookingReq?.tutor?._id : '',
       };
       const obj = {
         ...paymentDur,
@@ -113,10 +113,12 @@ export default function TutorAcceptance() {
 
       try {
         const res = await createPaymentService(obj);
+        console.log(res);
         if (res?.success) {
           toast.success(res?.message, { id: toastId });
           onCloseDrawer();
-          window.location.href = res?.data?.data;
+
+          window.location.href = res?.data;
         } else {
           toast.error(res?.message, { id: toastId });
           console.log(res);
@@ -129,6 +131,7 @@ export default function TutorAcceptance() {
 
   const makePayment = (record: TAcceptBookingRequest) => {
     setOpen(true);
+    form.resetFields();
     setBookingReq(record);
   };
 

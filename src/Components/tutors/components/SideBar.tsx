@@ -48,7 +48,7 @@ export default function SidebarSection({
 
   useEffect(() => {
     const params = new URLSearchParams(queryParams.toString());
-    params.set('subject', 'mathmatics');
+    params.set('subject', 'mathematics');
     params.set('grade', 'class 7');
     params.set('location', 'dhanmondi');
     params.set('rating', '0');

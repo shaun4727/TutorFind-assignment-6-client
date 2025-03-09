@@ -3,8 +3,9 @@ export type bookingPaymentDuration = {
   hours?: number;
   city?: string;
   userInfo: paymentData;
-  id?: string;
+  bookingRequestId?: string;
   hourly_rate: number;
+  tutorId: string;
 };
 
 export type paymentData = {

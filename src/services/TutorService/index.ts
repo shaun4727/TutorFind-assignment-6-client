@@ -22,7 +22,7 @@ export const getAllTutors = async (params: string) => {
   }
 };
 export const getAllBookingReq = async (params: string) => {
-  // const token = await getValidToken();
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/tutor/get-all-bookings/${params}`,
@@ -30,7 +30,7 @@ export const getAllBookingReq = async (params: string) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -45,7 +45,7 @@ export const getAllBookingReq = async (params: string) => {
 export const createBookingRequestService = async (
   bookingData: tutorBookingData
 ) => {
-  // const token = await getValidToken();
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/tutor/create-booking-request`,
@@ -53,7 +53,7 @@ export const createBookingRequestService = async (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookingData),
       }
@@ -69,7 +69,7 @@ export const createBookingRequestService = async (
 export const createAcceptBookingRequestService = async (
   bookingData: TAcceptBookingRequest
 ) => {
-  // const token = await getValidToken();
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/tutor/create-accept-booking-request`,
@@ -77,7 +77,7 @@ export const createAcceptBookingRequestService = async (
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookingData),
       }

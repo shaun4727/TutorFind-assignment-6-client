@@ -29,6 +29,10 @@ export default function DashboardSidebar({
   const { user, setIsLoading } = useUser();
 
   let { acceptedBookingRequest, setIsDashboardLoading } = useDashboard();
+  useEffect(() => {
+    setIsDashboardLoading(true);
+  }, []);
+
   const router = useRouter();
   const [show, setShow] = useState(true);
 

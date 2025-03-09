@@ -7,6 +7,7 @@
   --heading-line-height: 40px;
   --description-line-height: 24px;
   --input-btn-height: 36px;
+  --default-border-color: #d3d3d3;
 }
 .default-padding-body {
   padding: 0px 128px;
