@@ -26,7 +26,6 @@ export default function PaymentHistory() {
     getPaymentHistory();
   }, []);
 
-  console.log(paymentHistory);
   const columns: TableProps<TpaymentHistory>['columns'] = [
     {
       title: 'Tutor',

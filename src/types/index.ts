@@ -12,6 +12,7 @@ export type FieldTypeRegister = {
   updateProfile?: boolean;
   userId?: string;
   userEmail?: string;
+  imageUrl?: string;
 };
 
 export type ProfileDetail = {

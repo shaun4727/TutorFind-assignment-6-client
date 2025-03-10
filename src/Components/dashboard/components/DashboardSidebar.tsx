@@ -49,12 +49,13 @@ export default function DashboardSidebar({
     <div className="dashboard-sidebar-section">
       <div className="personal-detail">
         <Image
-          src="/images/static/profile.png"
+          src={user?.imageUrl || '/images/static/profile.png'}
           width={40}
           height={40}
           className="user-image"
           alt="user-image"
         />
+
         <h4 className="username">{user?.name}</h4>
       </div>
       {/* student navigation */}

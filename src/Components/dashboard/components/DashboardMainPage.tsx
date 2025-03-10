@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import TutorAcceptance from './subcomponents/TutorAcceptance';
 import PastBookings from './subcomponents/PastBookings';
 import PaymentHistory from './subcomponents/PaymentHistory';
+import ReviewTutors from './subcomponents/ReviewTutors';
 
 interface DashboardManagementProps {
   activeMenu: string;
@@ -30,6 +31,7 @@ export default function DashboardManagement({
       {activeMenu == 'tutor-acceptance' && <TutorAcceptance />}
       {activeMenu == 'past-bookings' && <PastBookings />}
       {activeMenu == 'payment-history' && <PaymentHistory />}
+      {activeMenu == 'review-tutors' && <ReviewTutors />}
     </div>
   );
 }

@@ -4,19 +4,8 @@ import { useUser } from '@/context/UserContext';
 
 import '../../assets/DashboardMainPage.css';
 import '@/../../assets/root.css';
-import { CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Col,
-  Form,
-  FormProps,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-  Space,
-  Upload,
-} from 'antd';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Col, Form, FormProps, Input, Row, Select, Space } from 'antd';
 import { ClassList } from '@/utils/constants';
 import { ProfileDetailStudent } from '@/types';
 import { toast } from 'sonner';
@@ -26,12 +15,14 @@ import {
   updateStudentProfile,
 } from '@/services/AuthService';
 import { useEffect, useState } from 'react';
+import UploadProfileImage from './UploadProfilePic';
 
 export default function ProfileManagementStudent() {
   let { user, setIsLoading } = useUser();
   const [profileData, setProfileData] = useState<ProfileDetailStudent | null>(
     null
   );
+
   const [updateProfileMode, setUpdateProfileMode] = useState<
     boolean | undefined
   >(false);
@@ -202,21 +193,8 @@ export default function ProfileManagementStudent() {
                   </span>
                 </p>
               </div>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-              >
-                <button style={{ border: 0, background: 'none' }} type="button">
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>
-                    {(user?.updateProfile ?? false)
-                      ? 'Upload Photo'
-                      : 'Change Photo'}
-                  </div>
-                </button>
-              </Upload>
+
+              <UploadProfileImage />
             </div>
           ) : (
             ''

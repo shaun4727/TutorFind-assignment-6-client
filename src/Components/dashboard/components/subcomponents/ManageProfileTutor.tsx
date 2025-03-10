@@ -30,6 +30,7 @@ import {
   getTutorProfileDetail,
 } from '@/services/AuthService';
 import { useEffect, useState } from 'react';
+import UploadProfileImage from './UploadProfilePic';
 
 export default function ProfileManagement() {
   let { user, setIsLoading } = useUser();
@@ -274,21 +275,7 @@ export default function ProfileManagement() {
                   </span>
                 </p>
               </div>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-              >
-                <button style={{ border: 0, background: 'none' }} type="button">
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>
-                    {(user?.updateProfile ?? false)
-                      ? 'Upload Photo'
-                      : 'Change Photo'}
-                  </div>
-                </button>
-              </Upload>
+              <UploadProfileImage />
             </div>
           ) : (
             ''
