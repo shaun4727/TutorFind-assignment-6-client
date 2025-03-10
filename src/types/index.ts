@@ -29,6 +29,7 @@ export type ProfileDetail = {
   class?: string;
   availability_slot?: string[];
   hourly_rate?: number;
+  totalEarning?: number;
 } | null;
 
 export type ProfileDetailStudent = {

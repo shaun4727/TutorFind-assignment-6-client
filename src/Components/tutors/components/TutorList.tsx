@@ -27,6 +27,7 @@ import {
 } from '@/types';
 import { useUser } from '@/context/UserContext';
 import { toast } from 'sonner';
+import { useSearchParams } from 'next/navigation';
 
 type sidebarPropType = {
   queryParams: URLSearchParams;
@@ -43,10 +44,39 @@ export default function TutorList({
   const { user, profileDetail } = useUser();
   const [open, setOpen] = useState<boolean>(false);
   const [form] = Form.useForm<tutorBookingData>();
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search');
 
   const showDrawer = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    if (search) {
+      try {
+        const fetchTutors = async () => {
+          if (search) {
+            try {
+              const params = new URLSearchParams();
+              params.set('search', search);
+              params.set('isBlocked', 'false');
+              // Await the result of getAllTutors
+              const result = await getAllTutors(params.toString());
+              console.log(search, result.data);
+              // Access the data property after the Promise resolves
+              setTutors(result.data);
+            } catch (err: any) {
+              console.log(err);
+            }
+          }
+        };
+
+        fetchTutors();
+      } catch (err: any) {
+        console.log(err);
+      }
+    }
+  }, [search]);
 
   const onCloseDrawer = () => {
     setOpen(false);
@@ -69,6 +99,7 @@ export default function TutorList({
   useEffect(() => {
     getTutorsFunc();
   }, [queryParams]);
+
   useEffect(() => {
     getTutorsSortedFunc();
   }, [queryParamsSorting]);

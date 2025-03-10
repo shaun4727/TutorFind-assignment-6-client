@@ -9,6 +9,7 @@ import TutorAcceptance from './subcomponents/TutorAcceptance';
 import PastBookings from './subcomponents/PastBookings';
 import PaymentHistory from './subcomponents/PaymentHistory';
 import ReviewTutors from './subcomponents/ReviewTutors';
+import TutorEarning from './subcomponents/TutorEarning';
 
 interface DashboardManagementProps {
   activeMenu: string;
@@ -32,6 +33,7 @@ export default function DashboardManagement({
       {activeMenu == 'past-bookings' && <PastBookings />}
       {activeMenu == 'payment-history' && <PaymentHistory />}
       {activeMenu == 'review-tutors' && <ReviewTutors />}
+      {activeMenu == 'earnings' && <TutorEarning />}
     </div>
   );
 }

@@ -41,7 +41,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setProfileDetail(studentProfile.data);
     } else {
       const tutorProfile = await getTutorProfileDetail(user?.userId as string);
-      setProfileDetail(tutorProfile);
+      setProfileDetail(tutorProfile.data);
     }
     setUser(user);
     setIsLoading(false);
