@@ -17,6 +17,7 @@
   font-family: var(--font-roboto), sans-serif;
   line-height: var(--description-line-height);
   opacity: 0.9;
+  padding-bottom: 40px;
 }
 .detail-section .blog-description .blog-button {
   margin: 10px 0 20px 0;
@@ -59,4 +60,27 @@
 }
 .detail-section .title-and-search .blog-search svg {
   color: #fff;
+}
+.blog-section-with-image {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.blog-section-with-image .blog-image {
+  width: 50%;
+  height: 250px;
+}
+
+@media (max-width: 700px) {
+  .blog-section-with-image .blog-image {
+    width: 350px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 400px) {
+  .blog-section-with-image .blog-image {
+    width: 230px;
+    height: 250px;
+  }
 }

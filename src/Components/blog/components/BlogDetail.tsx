@@ -3,92 +3,57 @@
 import { Button, Input } from 'antd';
 import '../assets/BlogDetail.css';
 import '@/../../assets/root.css';
+import { getNewsItemsService } from '@/services/BlogService/blogService';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const { Search } = Input;
 
 export default function BlogDetailSection() {
+  const [newsList, setNewsList] = useState<any>(null);
+  const getNewsContents = async (queryValue: string) => {
+    const res = await getNewsItemsService(queryValue);
+    setNewsList(res.data);
+  };
+
+  const getSearchValue = (value: string) => {
+    const values = value.toString()?.length > 0 ? value : 'a';
+    getNewsContents(values);
+  };
+
+  useEffect(() => {
+    getNewsContents('a');
+  }, []);
+
   return (
     <div className="detail-section ">
       <div className="title-and-search">
         <h3 className="blog-title">Blog Page</h3>
         <Search
           placeholder="Find Article by title"
-          onSearch={() => console.log('hello')}
+          onSearch={getSearchValue}
           className="blog-search"
         />
       </div>
-      <p className="date-time">june 24,2024</p>
-      <h4 className="blog-title">This is blog title question?</h4>
-      <div className="blog-description">
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using
-          'Content here, content here', making it look like readable English.
-        </p>
-        <Button block className="blog-button">
-          Read more
-        </Button>
-      </div>
-      <p className="date-time">june 24,2024</p>
-      <h4 className="blog-title">This is blog title question?</h4>
-      <div className="blog-description">
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using
-          'Content here, content here', making it look like readable English.
-        </p>
-        <Button block className="blog-button">
-          Read more
-        </Button>
-      </div>
-      <p className="date-time">june 24,2024</p>
-      <h4 className="blog-title">This is blog title question?</h4>
-      <div className="blog-description">
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using
-          'Content here, content here', making it look like readable English.
-        </p>
-        <Button block className="blog-button">
-          Read more
-        </Button>
-      </div>
-      <p className="date-time">june 24,2024</p>
-      <h4 className="blog-title">This is blog title question?</h4>
-      <div className="blog-description">
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum is that it has a
-          more-or-less normal distribution of letters, as opposed to using
-          'Content here, content here', making it look like readable English.
-        </p>
-        <Button block className="blog-button">
-          Read more
-        </Button>
-      </div>
+      {newsList &&
+        newsList.map((item: any, index: number) => (
+          <div key={index}>
+            <p className="date-time">Author: {item?.author}</p>
+            <h4 className="blog-title">{item?.title}</h4>
+            <div className="blog-section-with-image">
+              <Image
+                src={item?.urlToImage || `/images/static/profile.png`}
+                width={100}
+                height={100}
+                className="blog-image"
+                alt="blog-image"
+              />
+            </div>
+            <div className="blog-description">
+              <p>{item.content}</p>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

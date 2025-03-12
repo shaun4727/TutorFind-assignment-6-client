@@ -126,9 +126,6 @@ export default function SidebarSection({
   const applyFilters = () => {
     const params = new URLSearchParams(querySelfParams.toString());
     setQueryParams(params);
-    // router.push(`${pathname}?${queryParams.toString()}`, {
-    //   scroll: false,
-    // });
   };
 
   return (
@@ -161,7 +158,6 @@ export default function SidebarSection({
         </div>
         <h5 className="filter-title">Rating</h5>
         <Rate
-          allowHalf
           defaultValue={0}
           onChange={(value) => onChangeFilter('rating', value)}
           className="filter-list"
