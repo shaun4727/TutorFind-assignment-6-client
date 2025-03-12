@@ -112,6 +112,27 @@ export const getPaymentHistoryService = async () => {
   }
 };
 
+export const getTutorProfileDetailService = async (id: string) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/student/get-tutor-profile-detail/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const result = await res.json();
+
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 export const uploadProfileImgService = async (url: { url: string }) => {
   const token = await getValidToken();
 

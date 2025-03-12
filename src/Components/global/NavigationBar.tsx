@@ -11,13 +11,15 @@ import {
   MenuItem,
 } from '@/utils/constants';
 import { useUser } from '@/context/UserContext';
+import { logout } from '@/services/AuthService';
+
 import { useEffect, useState } from 'react';
 
 export default function NavBar() {
   const router = useRouter();
   const [navRoutes, setNavRoutes] = useState<MenuItem[]>(basicNavRoutes);
 
-  const { user } = useUser();
+  const { user, setIsLoading } = useUser();
 
   useEffect(() => {
     if (user?.userId) {
@@ -29,10 +31,14 @@ export default function NavBar() {
 
   const onClick: MenuProps['onClick'] = (e) => {
     document.title = e.key;
-    router.push(e.key);
-    // if (e.key == 'logout') {
 
-    // }
+    if (e.key == 'logout') {
+      setIsLoading(true);
+      logout();
+      router.push('/');
+    } else {
+      router.push(e.key);
+    }
   };
   return (
     <>

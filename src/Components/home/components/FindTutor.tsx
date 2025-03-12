@@ -4,8 +4,13 @@ import Image from 'next/image';
 import '../asset/FindTutor.css';
 import '@/../../assets/root.css';
 import { Col, Row, Button } from 'antd';
+import { useRouter } from 'next/navigation';
 
 export default function FindTutor() {
+  const router = useRouter();
+  const navigateTo = (value: string) => {
+    router.push(`/${value}`);
+  };
   return (
     <div className="find-tutor">
       <Row gutter={[16, 16]} className="tutor-row">
@@ -31,7 +36,9 @@ export default function FindTutor() {
             </p>
 
             <div className="hero-action-btn">
-              <Button block>Find Tutor</Button>
+              <Button block onClick={() => navigateTo('tutors')}>
+                Find Tutor
+              </Button>
             </div>
           </div>
         </Col>

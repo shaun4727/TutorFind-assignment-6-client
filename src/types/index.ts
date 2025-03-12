@@ -42,17 +42,23 @@ export type ProfileDetailStudent = {
 } | null;
 
 export type Tutor = {
-  id: {
+  id?: {
     name: string;
     email: string;
     role: string;
     isBlocked: boolean;
     updateProfile: boolean;
+    imageUrl: string;
     _id: string;
   };
+
   expertise: string;
   subjects: string[];
-  rating?: number;
+  rating: {
+    id: string;
+    rate: number;
+    review: string;
+  }[];
   image?: string;
   address: string;
 
@@ -63,9 +69,11 @@ export type Tutor = {
   userDetails?: {
     email?: string;
     isBlocked?: boolean;
+    imageUrl?: string;
     name?: string;
     role?: string;
     updateProfile?: boolean;
+    _id: string;
   };
 } | null;
 export type allTutors = Tutor[] | null;
@@ -112,4 +120,54 @@ export type TAcceptBookingRequest = {
   class: string | undefined;
   time_slot: string | undefined;
   subject: string | undefined;
+};
+
+export type TTutorTestimonials = {
+  address: string;
+  rating: {
+    id: {
+      email: string;
+      name: string;
+      role: string;
+      imageUrl: string;
+    };
+    rate: number;
+    review: string;
+  };
+};
+
+export type TTutorProfileDtl = {
+  id?: {
+    name: string;
+    email: string;
+    role: string;
+    isBlocked: boolean;
+    updateProfile: boolean;
+    imageUrl: string;
+    _id: string;
+  };
+
+  expertise: string;
+  subjects: string[];
+  rating: {
+    id: string;
+    rate: number;
+    review: string;
+  };
+  image?: string;
+  address: string;
+
+  phone: string;
+  earning?: number;
+  availability_slot: string[];
+  hourly_rate: number;
+  userDetails?: {
+    email?: string;
+    isBlocked?: boolean;
+    imageUrl?: string;
+    name?: string;
+    role?: string;
+    updateProfile?: boolean;
+    _id: string;
+  };
 };

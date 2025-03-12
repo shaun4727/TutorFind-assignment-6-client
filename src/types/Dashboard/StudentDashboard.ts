@@ -3,4 +3,5 @@ export type TTutor = {
   _id?: string;
   rate?: number;
   tutorId?: string;
+  review?: string;
 };

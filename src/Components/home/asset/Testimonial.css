@@ -160,3 +160,12 @@
     padding: 15px;
   }
 }
+
+.testimonial-section .slick-track {
+  opacity: 1;
+  transform: translate3d(0px, 0px, 0px);
+  width: 4104px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

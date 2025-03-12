@@ -21,6 +21,24 @@ export const getAllTutors = async (params: string) => {
     return Error(error);
   }
 };
+export const getAllTutorsProfileTestimonialService = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/student/get-tutor-profile-detail-testimonial`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const result = await res.json();
+
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
 export const getAllBookingReq = async (params: string) => {
   const token = await getValidToken();
   try {

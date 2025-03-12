@@ -16,11 +16,9 @@ export default function RegisterPage() {
   const router = useRouter();
   const { setIsLoading } = useUser();
 
-  const handleChangeInForm = (value: string) => {
-    setRole(value);
-  };
   const onFinish: FormProps<FieldTypeRegister>['onFinish'] = async (values) => {
     let toastId: string | number = 'register';
+
     try {
       if (values.password != values.confirm_password) {
         toastId = toast.error('Password and Confirm Password does not match!', {
@@ -51,7 +49,7 @@ export default function RegisterPage() {
         <Form
           className="register-form"
           name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{ role: 'student' }}
           onFinish={onFinish}
           autoComplete="off"
         >
@@ -107,7 +105,6 @@ export default function RegisterPage() {
           >
             <Select
               style={{ width: 120 }}
-              onChange={handleChangeInForm}
               options={[
                 { value: 'student', label: 'Student' },
                 { value: 'tutor', label: 'Tutor' },

@@ -4,10 +4,22 @@ import Image from 'next/image';
 import '../asset/HeroSection.css';
 import '@/../../assets/root.css';
 import { Col, Row, Input, Button } from 'antd';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
 
 const { Search } = Input;
 
 export default function HeroSection() {
+  const router = useRouter();
+  const { user } = useUser();
+  const getSearchValue = (value: string) => {
+    router.push(`/tutors?search=${value}`);
+  };
+
+  const navigateTo = (value: string) => {
+    router.push(`/${value}`);
+  };
+
   return (
     <div className="hero-section">
       <Row gutter={[16, 16]}>
@@ -22,12 +34,24 @@ export default function HeroSection() {
             </p>
             <Search
               placeholder="Find Tutor by subject, grade, or tutor name"
-              onSearch={() => console.log('hello')}
+              onSearch={getSearchValue}
               className="hero-search"
             />
             <div className="hero-action-btn">
-              <Button block>Student Signup</Button>
-              <Button block>Tutor Signup</Button>
+              <Button
+                block
+                disabled={user?.userId ? true : false}
+                onClick={() => navigateTo('login')}
+              >
+                Login
+              </Button>
+              <Button
+                block
+                disabled={user?.userId ? true : false}
+                onClick={() => navigateTo('register')}
+              >
+                Register
+              </Button>
             </div>
           </div>
         </Col>

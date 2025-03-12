@@ -62,7 +62,7 @@ export default function TutorList({
               params.set('isBlocked', 'false');
               // Await the result of getAllTutors
               const result = await getAllTutors(params.toString());
-              console.log(search, result.data);
+
               // Access the data property after the Promise resolves
               setTutors(result.data);
             } catch (err: any) {
@@ -111,7 +111,7 @@ export default function TutorList({
     toastId = toast.loading('...Loading', { id: toastId });
     if (values) {
       values.userId = user?.userId;
-      values.tutorId = tutor?.id?._id;
+      values.tutorId = tutor?.id?._id || tutor?.userDetails?._id;
     }
 
     try {
@@ -152,13 +152,15 @@ export default function TutorList({
               >
                 <div className="personal-detail">
                   <Image
-                    src="/images/static/profile.png"
+                    src={tutor?.id?.imageUrl || `/images/static/profile.png`}
                     width={90}
                     height={90}
                     className="team-image"
                     alt="team-image"
                   />
-                  <h4 className="member-name">{tutor?.id.name}</h4>
+                  <h4 className="member-name">
+                    {tutor?.id?.name || tutor?.userDetails?.name}
+                  </h4>
                   <p
                     className="designation"
                     title={`Expert in ${tutor?.expertise.toString()}`}
@@ -183,14 +185,16 @@ export default function TutorList({
           </p>
           <div className="tutor-header-info">
             <Image
-              src="/images/static/profile.png"
+              src={tutor?.id?.imageUrl || `/images/static/profile.png`}
               width={90}
               height={90}
               className="team-image"
               alt="team-image"
             />
             <div className="title-description">
-              <h4 className="title">{tutor?.id.name}</h4>
+              <h4 className="title">
+                {tutor?.id?.name || tutor?.userDetails?.name}
+              </h4>
               <span className="expert-in">
                 {' '}
                 Expert in {tutor?.expertise.toString()}

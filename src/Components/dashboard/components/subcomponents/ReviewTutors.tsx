@@ -17,16 +17,19 @@ import {
   Row,
   Table,
   TableProps,
-  Tag,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import {
   getPaymentHistoryService,
+  getTutorProfileDetailService,
   updateTutorRatingService,
 } from '@/services/DashboardService/StudentService';
 import { TpaymentHistory } from '@/types/Dashboard/PaymentHistory';
 import { TTutor } from '@/types/Dashboard/StudentDashboard';
 import { toast } from 'sonner';
+import { TTutorProfileDtl, Tutor } from '@/types';
+
+const { TextArea } = Input;
 
 export default function ReviewTutors() {
   let { user, setIsLoading, profileDetail } = useUser();
@@ -36,6 +39,7 @@ export default function ReviewTutors() {
   );
   const [open, setOpen] = useState<boolean>(false);
   const [tutor, setTutor] = useState<TTutor | null>(null);
+  const [tutorProfileDtl, setTutorProfileDtl] = useState<TTutorProfileDtl>();
   const [form] = Form.useForm<TTutor>(undefined);
 
   const getPaymentHistory = async () => {
@@ -51,7 +55,10 @@ export default function ReviewTutors() {
     getPaymentHistory();
   }, []);
 
-  const rateTheTutor = (tutor: TTutor) => {
+  const rateTheTutor = async (tutor: TTutor) => {
+    const res = await getTutorProfileDetailService(tutor._id as string);
+
+    setTutorProfileDtl(res.data);
     setTutor(tutor);
     form.resetFields();
     setOpen(true);
@@ -98,14 +105,16 @@ export default function ReviewTutors() {
   const onRatingTheTutor: FormProps<TTutor>['onFinish'] = async (values) => {
     let toastId: string | number = 'payment';
     toastId = toast.loading('...Loading', { id: toastId });
+
     const objData = {
       ...values,
       tutorId: tutor?._id,
+      review: values.review,
     };
 
     try {
       const res = await updateTutorRatingService(objData);
-      console.log(res);
+
       if (res?.success) {
         toast.success(res?.message, { id: toastId });
         onCloseDrawer();
@@ -155,6 +164,10 @@ export default function ReviewTutors() {
           className="book-tutor-detail"
           name="basic"
           form={form}
+          initialValues={{
+            rate: tutorProfileDtl?.rating.rate,
+            review: tutorProfileDtl?.rating.review,
+          }}
           onFinish={onRatingTheTutor}
           autoComplete="off"
         >
@@ -165,10 +178,23 @@ export default function ReviewTutors() {
             rules={[{ required: true, message: 'Please give your rating!' }]}
           >
             <Rate
-              allowHalf
               defaultValue={0}
               // onChange={(value) => onChangeFilter('rating', value)}
               className="filter-list"
+            />
+          </Form.Item>
+
+          <Form.Item<TTutor>
+            label="Review"
+            name="review"
+            className="label-input"
+            rules={[{ required: true, message: 'Please give your review!' }]}
+          >
+            <TextArea
+              showCount
+              maxLength={1000}
+              placeholder="enter your review"
+              style={{ height: 120, resize: 'none' }}
             />
           </Form.Item>
 

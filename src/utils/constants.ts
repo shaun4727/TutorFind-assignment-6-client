@@ -262,6 +262,11 @@ export const AuthenticatedNavRoutes: MenuItem[] = [
     key: 'dashboard',
     route: '/dashboard',
   },
+  {
+    label: 'Logout',
+    key: 'logout',
+    route: '/',
+  },
 ];
 
 export const basicNavRoutes: MenuItem[] = [
