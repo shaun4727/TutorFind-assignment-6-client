@@ -30,7 +30,7 @@ export default function PastBookings() {
     {
       title: 'Tutor',
       dataIndex: 'tutor',
-      key: 'subject',
+      key: '1',
       render: (_, { tutor }) => (
         <p>{typeof tutor === 'object' ? tutor.name : tutor}</p>
       ),
@@ -39,16 +39,16 @@ export default function PastBookings() {
     {
       title: 'Subject',
       dataIndex: 'subject',
-      key: 'subject',
+      key: '2',
     },
     {
       title: 'Hourly Rate',
       dataIndex: 'hourly_rate',
-      key: 'hourly_rate',
+      key: '3',
     },
     {
       title: 'Time',
-      key: 'time',
+      key: '4',
       dataIndex: 'time',
       render: (_, { time_slot }) => (
         <>

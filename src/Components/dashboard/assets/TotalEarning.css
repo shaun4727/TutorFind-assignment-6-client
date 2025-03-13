@@ -17,3 +17,7 @@
   font-weight: 700 !important;
   color: var(--nav-info-background);
 }
+.tutor-image-earning {
+  width: 100px;
+  height: 100px;
+}

@@ -31,3 +31,6 @@
   font-family: var(--font-poppins), sans-serif;
   font-size: var(--description-font-size);
 }
+nextjs-portal {
+  display: none;
+}

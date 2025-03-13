@@ -4,6 +4,7 @@ import { getValidToken } from '@/lib/verifyToken';
 import { bookingPaymentDuration } from '@/types/Dashboard/AcceptanceTutor';
 import { PaymentData } from '@/types/Dashboard/MakePayment';
 import { TTutor } from '@/types/Dashboard/StudentDashboard';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export const getAcceptedBookingService = async () => {
   const token = await getValidToken();
@@ -113,6 +114,7 @@ export const getPaymentHistoryService = async () => {
 };
 
 export const getTutorProfileDetailService = async (id: string) => {
+  noStore();
   const token = await getValidToken();
   try {
     const res = await fetch(

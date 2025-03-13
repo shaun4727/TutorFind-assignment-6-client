@@ -60,7 +60,7 @@ export default function ReviewTutors() {
 
     setTutorProfileDtl(res.data);
     setTutor(tutor);
-    form.resetFields();
+    // form.resetFields();
     setOpen(true);
   };
 
@@ -68,24 +68,24 @@ export default function ReviewTutors() {
     {
       title: 'Tutor',
       dataIndex: 'tutor',
-      key: 'subject',
+      key: '1',
       render: (_, Record) => <p>{Record.bookingRequestId.tutor.name}</p>,
     },
     {
       title: 'Subject',
       dataIndex: 'subject',
-      key: 'subject',
+      key: '2',
       render: (_, Record) => <p>{Record.bookingRequestId.subject}</p>,
     },
     {
       title: 'Total Cost',
       dataIndex: 'hourly_rate',
-      key: 'hourly_rate',
+      key: '3',
       render: (_, { hours, hourly_rate }) => <>{hours * hourly_rate}</>,
     },
     {
       title: 'Action',
-      key: 'action',
+      key: '4',
       dataIndex: 'action',
       render: (_, Record) => (
         <>
@@ -165,8 +165,8 @@ export default function ReviewTutors() {
           name="basic"
           form={form}
           initialValues={{
-            rate: tutorProfileDtl?.rating.rate,
-            review: tutorProfileDtl?.rating.review,
+            rate: tutorProfileDtl?.rating?.rate,
+            review: tutorProfileDtl?.rating?.review,
           }}
           onFinish={onRatingTheTutor}
           autoComplete="off"

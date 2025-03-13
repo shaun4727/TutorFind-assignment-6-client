@@ -13,15 +13,15 @@ export default function TutorEarning() {
   useEffect(() => {
     setIsLoading(true);
   }, []);
-  console.log(profileDetail);
+
   return (
     <>
       <div className="total-earning">
         <Image
           src={'/images/static/office-worker.png'}
-          width={140}
-          height={140}
-          className="tutor-image"
+          width={100}
+          height={100}
+          className="tutor-image-earning"
           alt="tutor-logo"
         />
         <h4 className="heading-title">Your Total Earning</h4>

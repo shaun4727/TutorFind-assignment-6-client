@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
 export default function RegisterPage() {
-  const [role, setRole] = useState<string>('tutor');
+  const [role, setRole] = useState<string>('student');
   const router = useRouter();
   const { setIsLoading } = useUser();
 
@@ -27,7 +27,6 @@ export default function RegisterPage() {
 
         return;
       }
-      values.role = role;
 
       const res = await registerUser(values);
 
