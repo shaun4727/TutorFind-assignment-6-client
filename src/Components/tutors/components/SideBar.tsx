@@ -13,13 +13,12 @@ import {
   Button,
   Radio,
   RadioChangeEvent,
-  CheckboxProps,
 } from 'antd';
 import '../assets/SideBar.css';
 import '@/../../assets/root.css';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ExpertiseSubject, locations } from '@/utils/constants';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type sidebarPropType = {
   setQueryParams: Dispatch<SetStateAction<URLSearchParams>>;
@@ -32,19 +31,13 @@ export default function SidebarSection({
   setQueryParams,
   queryParams,
   setQueryParamsSorting,
-  queryParamsSorting,
 }: sidebarPropType) {
   const [inputValue, setInputValue] = useState<number>(500);
-  const [priceSort, setPriceSort] = useState<number>(1);
-  const [ratingSort, setRatingSort] = useState<number>(1);
-  const [createdAt, setCreatedAt] = useState<number>(1);
   const [checkedValues, setCheckedValues] = useState<string[]>(['available']);
   const searchParams = useSearchParams();
   const [querySelfParams, setQuerySelfParams] = useState(
     new URLSearchParams(searchParams.toString())
   );
-  const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     const params = new URLSearchParams(queryParams.toString());
@@ -55,17 +48,7 @@ export default function SidebarSection({
     params.set('rate', '500');
     params.set('isBlocked', 'false');
     setQuerySelfParams(params);
-  }, []);
-
-  const applySorting = () => {
-    const params = new URLSearchParams(queryParamsSorting.toString());
-    params.set('sortBy', 'hourly_rate,rating,createdAt');
-    params.set('hourly_rate', priceSort === 0 ? 'desc' : 'asc');
-    params.set('rating', ratingSort === 0 ? 'desc' : 'asc');
-    params.set('createdAt', createdAt === 0 ? 'desc' : 'asc');
-
-    setQueryParamsSorting(new URLSearchParams(params.toString()));
-  };
+  }, [queryParams]);
 
   const onChangeRange: InputNumberProps['onChange'] = (newValue) => {
     setInputValue(newValue as number);

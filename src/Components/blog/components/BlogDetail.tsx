@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { Button, Input } from 'antd';
+import { Input } from 'antd';
 import '../assets/BlogDetail.css';
 import '@/../../assets/root.css';
 import { getNewsItemsService } from '@/services/BlogService/blogService';

@@ -4,7 +4,7 @@ import { Col, Row } from 'antd';
 import SidebarSection from './SideBar';
 import TutorList from './TutorList';
 import { useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function TutorsParent() {
   const searchParams = useSearchParams();

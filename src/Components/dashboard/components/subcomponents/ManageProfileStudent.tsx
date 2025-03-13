@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import UploadProfileImage from './UploadProfilePic';
 
 export default function ProfileManagementStudent() {
-  let { user, setIsLoading } = useUser();
+  const { user, setIsLoading } = useUser();
   const [profileData, setProfileData] = useState<ProfileDetailStudent | null>(
     null
   );
@@ -29,16 +29,15 @@ export default function ProfileManagementStudent() {
 
   const [form] = Form.useForm<Partial<ProfileDetailStudent>>();
 
-  const getProfileDetailFunc = async () => {
-    const result = await getProfileDetail(user?.userId as string);
-    setProfileData(result.data);
-  };
-
   useEffect(() => {
+    const getProfileDetailFunc = async () => {
+      const result = await getProfileDetail(user?.userId as string);
+      setProfileData(result.data);
+    };
     getProfileDetailFunc();
     form.resetFields();
     setUpdateProfileMode(user?.updateProfile);
-  }, [user]);
+  }, [user, form]);
 
   const updateProfile = () => {
     console.log('aa');
@@ -66,8 +65,8 @@ export default function ProfileManagementStudent() {
           toast.error(res.message, { id: toastId });
           console.log(res);
         }
-      } catch (err: any) {
-        //   toast.error(err.data?.message, { id: toastId });
+      } catch (err: unknown) {
+        console.log(err);
       }
     };
 

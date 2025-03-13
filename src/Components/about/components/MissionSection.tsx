@@ -11,7 +11,7 @@ export default function MissionSection() {
           <p className="mission-detail">
             Our mission is to connect students with dedicated tutors who provide
             personalized, in-home learning experiences. By bringing quality
-            education directly to students' homes, we aim to enhance their
+            education directly to students homes, we aim to enhance their
             talents, strengthen their academic skills, and build their
             confidence. Our platform ensures that each student receives the
             guidance they need to excel, fostering a supportive environment that

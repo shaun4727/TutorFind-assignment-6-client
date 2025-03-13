@@ -8,15 +8,6 @@ import { useEffect, useState } from 'react';
 import { allTutors } from '@/types';
 import { getAllTutors } from '@/services/TutorService';
 
-const contentStyle: React.CSSProperties = {
-  margin: 0,
-  height: '160px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
 export default function PopularTutors() {
   const [tutorsForLargerScreen, setTutors] = useState<allTutors[]>();
   const [tutorsForMediumScreen, setMediumTutors] = useState<allTutors[]>();

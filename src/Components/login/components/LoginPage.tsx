@@ -34,8 +34,9 @@ export default function LoginPage() {
       } else {
         toast.error(res?.message, { id: toastId });
       }
-    } catch (err: any) {
-      toast.error(err?.message, { id: toastId });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'An unknown error';
+      toast.error(message, { id: toastId });
     }
   };
   return (
@@ -80,7 +81,8 @@ export default function LoginPage() {
           </Form.Item>
         </Form>
         <h4>
-          Don't have an account? Please <Link href="/register">Register</Link>
+          Don&apos;t have an account? Please{' '}
+          <Link href="/register">Register</Link>
         </h4>
       </Card>
     </div>

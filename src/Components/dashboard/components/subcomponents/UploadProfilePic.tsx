@@ -12,7 +12,7 @@ import { uploadProfileImgService } from '@/services/DashboardService/StudentServ
 import { updateCurrentUser } from '@/services/AuthService';
 
 export default function UploadProfileImage() {
-  let { user, setIsLoading } = useUser();
+  const { user, setIsLoading } = useUser();
   const [ImgLoading, setImgLoading] = useState(false);
 
   const handleImageUpload: UploadProps['onChange'] = async (info) => {
@@ -24,16 +24,16 @@ export default function UploadProfileImage() {
       // Get this url from response in real world.
       setImgLoading(false);
       console.log(info.file);
-      let data = new FormData();
+      const data = new FormData();
       data.append('file', info.file.originFileObj as File);
       data.append(
         'upload_preset',
         process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME!
       );
       data.append('cloud_name', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!);
-      let toastId = toast.loading('...Loading', { id: 1 });
+      const toastId = toast.loading('...Loading', { id: 1 });
       try {
-        const res: any = await fetch(
+        const res = await fetch(
           `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
           {
             method: 'POST',
@@ -51,7 +51,7 @@ export default function UploadProfileImage() {
         } else {
           toast.error(result.message, { id: toastId });
         }
-      } catch (err: any) {
+      } catch (err) {
         console.log(err);
       }
     }

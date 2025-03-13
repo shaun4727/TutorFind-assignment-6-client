@@ -19,12 +19,7 @@ import {
   createBookingRequestService,
   getAllTutors,
 } from '@/services/TutorService';
-import {
-  allTutors,
-  Tutor,
-  tutorBookingData,
-  tutorBookingFormData,
-} from '@/types';
+import { allTutors, Tutor, tutorBookingData } from '@/types';
 import { useUser } from '@/context/UserContext';
 import { toast } from 'sonner';
 import { useSearchParams } from 'next/navigation';
@@ -65,14 +60,14 @@ export default function TutorList({
 
               // Access the data property after the Promise resolves
               setTutors(result.data);
-            } catch (err: any) {
+            } catch (err) {
               console.log(err);
             }
           }
         };
 
         fetchTutors();
-      } catch (err: any) {
+      } catch (err) {
         console.log(err);
       }
     }
@@ -82,25 +77,24 @@ export default function TutorList({
     setOpen(false);
   };
 
-  const getTutorsFunc = async () => {
-    const result = await getAllTutors(queryParams.toString());
-    setTutors(result.data);
-  };
-  const getTutorsSortedFunc = async () => {
-    const result = await getAllTutors(queryParamsSorting.toString());
-    setTutors(result.data);
-  };
-
   const showTutorDetail = (tutorItem: Tutor) => {
     setViewDetail(true);
     setTutor(tutorItem);
   };
 
   useEffect(() => {
+    const getTutorsFunc = async () => {
+      const result = await getAllTutors(queryParams.toString());
+      setTutors(result.data);
+    };
     getTutorsFunc();
   }, [queryParams]);
 
   useEffect(() => {
+    const getTutorsSortedFunc = async () => {
+      const result = await getAllTutors(queryParamsSorting.toString());
+      setTutors(result.data);
+    };
     getTutorsSortedFunc();
   }, [queryParamsSorting]);
 
@@ -123,8 +117,9 @@ export default function TutorList({
         toast.error(res?.message, { id: toastId });
         console.log(res);
       }
-    } catch (err: any) {
-      toast.error(err?.message, { id: toastId });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'An unknown error';
+      toast.error(message, { id: toastId });
       console.log(err);
     }
   };

@@ -99,7 +99,7 @@ const getAccountItems: (panelStyle: CSSProperties) => CollapseProps['items'] = (
     label: 'How do I update my profile information?',
     children: (
       <p>
-        After logging in, go to your dashboard and click on the "Edit Profile"
+        After logging in, go to your dashboard and click on the Edit Profile
         option. You can update your personal details, profile picture, and other
         information.
       </p>
@@ -111,9 +111,9 @@ const getAccountItems: (panelStyle: CSSProperties) => CollapseProps['items'] = (
     label: 'How do I view my booking history or payment history?',
     children: (
       <p>
-        In your dashboard, navigate to the "Booking History" or "Payment
-        History" section. You will find a detailed list of all your past
-        bookings and payments.
+        In your dashboard, navigate to the Booking History or Payment History
+        section. You will find a detailed list of all your past bookings and
+        payments.
       </p>
     ),
     style: panelStyle,

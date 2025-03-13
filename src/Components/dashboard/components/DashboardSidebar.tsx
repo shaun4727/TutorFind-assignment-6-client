@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
 import { LogoutOutlined } from '@ant-design/icons';
 import { logout } from '@/services/AuthService';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Badge } from 'antd';
 
 import { tutorBookingData } from '@/types';
@@ -28,13 +28,12 @@ export default function DashboardSidebar({
 }: DashboardManagementProps) {
   const { user, setIsLoading } = useUser();
 
-  let { acceptedBookingRequest, setIsDashboardLoading } = useDashboard();
+  const { acceptedBookingRequest, setIsDashboardLoading } = useDashboard();
   useEffect(() => {
     setIsDashboardLoading(true);
-  }, []);
+  }, [setIsDashboardLoading]);
 
   const router = useRouter();
-  const [show, setShow] = useState(true);
 
   const handleLogout = () => {
     logout();

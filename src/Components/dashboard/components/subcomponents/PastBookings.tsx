@@ -11,7 +11,7 @@ import { TAcceptBookingRequest } from '@/types';
 import { getPastBookingsService } from '@/services/DashboardService/StudentService';
 
 export default function PastBookings() {
-  let { user, setIsLoading, profileDetail } = useUser();
+  const { user } = useUser();
 
   const [pastBookingReq, setPastBookingReq] = useState<
     TAcceptBookingRequest[] | []

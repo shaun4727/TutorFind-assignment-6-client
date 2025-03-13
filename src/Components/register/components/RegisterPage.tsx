@@ -6,22 +6,20 @@ import '@/../../assets/root.css';
 import { FieldTypeRegister } from '@/types';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import { useState } from 'react';
 import { registerUser } from '@/services/AuthService';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
 export default function RegisterPage() {
-  const [role, setRole] = useState<string>('student');
   const router = useRouter();
   const { setIsLoading } = useUser();
 
   const onFinish: FormProps<FieldTypeRegister>['onFinish'] = async (values) => {
-    let toastId: string | number = 'register';
+    const toastId: string | number = 'register';
 
     try {
       if (values.password != values.confirm_password) {
-        toastId = toast.error('Password and Confirm Password does not match!', {
+        toast.error('Password and Confirm Password does not match!', {
           id: toastId,
         });
 
@@ -37,8 +35,9 @@ export default function RegisterPage() {
       } else {
         toast.error(res?.error?.[0]?.message);
       }
-    } catch (err: any) {
-      //   toast.error(err.data?.message, { id: toastId });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'An unknown error';
+      toast.error(message, { id: toastId });
     }
   };
   return (

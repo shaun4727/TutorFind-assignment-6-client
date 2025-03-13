@@ -9,21 +9,20 @@ import { tutorBookingData } from '@/types';
 import { getAllBookingReq } from '@/services/TutorService';
 
 export default function DashboardMainComponent() {
-  let { user } = useUser();
+  const { user } = useUser();
   const [activeMenu, setActiveMenu] = useState<string>('manage-profile-tutor');
   const [bookings, setBookings] = useState<tutorBookingData[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const gettingBookings = async () => {
-    try {
-      const res = await getAllBookingReq(user?.userId as string);
-      setBookings(res.data || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const gettingBookings = async () => {
+      try {
+        const res = await getAllBookingReq(user?.userId as string);
+        setBookings(res.data || []);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     gettingBookings();
   }, [user, loading]);
 

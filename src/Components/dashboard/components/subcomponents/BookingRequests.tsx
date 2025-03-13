@@ -6,8 +6,7 @@ import '../../assets/BookingRequests.css';
 import '@/../../assets/root.css';
 
 import { Button, Col, Row } from 'antd';
-import { TAcceptBookingRequest, tutorBookingData } from '@/types';
-import { useEffect, useState } from 'react';
+import { tutorBookingData } from '@/types';
 import { createAcceptBookingRequestService } from '@/services/TutorService';
 import { toast } from 'sonner';
 import { rejectBookingService } from '@/services/DashboardService/TutorService';
@@ -21,9 +20,7 @@ export default function BookingRequests({
   bookings,
   setLoading,
 }: BookingProps) {
-  let { user, setIsLoading } = useUser();
-  const [acceptedBookingReq, setAcceptedBookingReq] =
-    useState<TAcceptBookingRequest | null>(null);
+  const { user } = useUser();
 
   const acceptBookingRequest = async (item: tutorBookingData) => {
     let toastId: string | number = 'updateProfile';
@@ -42,7 +39,6 @@ export default function BookingRequests({
         const res = await createAcceptBookingRequestService(obj);
         if (res?.success) {
           toast.success(res?.message, { id: toastId });
-          setAcceptedBookingReq(res?.data);
           setLoading(true);
         } else {
           toast.error(res?.message, { id: toastId });

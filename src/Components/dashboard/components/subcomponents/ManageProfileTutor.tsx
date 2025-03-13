@@ -4,7 +4,7 @@ import { useUser } from '@/context/UserContext';
 
 import '../../assets/DashboardMainPage.css';
 import '@/../../assets/root.css';
-import { CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import {
   Button,
   Col,
@@ -15,7 +15,6 @@ import {
   Row,
   Select,
   Space,
-  Upload,
 } from 'antd';
 import {
   ExpertiseSubject,
@@ -33,7 +32,7 @@ import { useEffect, useState } from 'react';
 import UploadProfileImage from './UploadProfilePic';
 
 export default function ProfileManagement() {
-  let { user, setIsLoading } = useUser();
+  const { user, setIsLoading } = useUser();
   const [profileData, setProfileData] = useState<ProfileDetail | null>(null);
   const [updateProfileMode, setUpdateProfileMode] = useState<
     boolean | undefined
@@ -41,13 +40,12 @@ export default function ProfileManagement() {
 
   const [form] = Form.useForm<Partial<ProfileDetail>>(undefined);
 
-  const getProfileDetailFunc = async () => {
-    const result = await getTutorProfileDetail(user?.userId as string);
-
-    setProfileData(result.data);
-  };
-
   useEffect(() => {
+    const getProfileDetailFunc = async () => {
+      const result = await getTutorProfileDetail(user?.userId as string);
+
+      setProfileData(result.data);
+    };
     getProfileDetailFunc();
     // form.resetFields();
     setUpdateProfileMode(user?.updateProfile);
@@ -79,8 +77,8 @@ export default function ProfileManagement() {
         toast.error(res.message, { id: toastId });
         console.log(res);
       }
-    } catch (err: any) {
-      //   toast.error(err.data?.message, { id: toastId });
+    } catch (err: unknown) {
+      console.log(err);
     }
   };
 

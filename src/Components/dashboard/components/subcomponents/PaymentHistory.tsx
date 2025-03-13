@@ -11,7 +11,7 @@ import { getPaymentHistoryService } from '@/services/DashboardService/StudentSer
 import { TpaymentHistory } from '@/types/Dashboard/PaymentHistory';
 
 export default function PaymentHistory() {
-  let { user, setIsLoading, profileDetail } = useUser();
+  const { user } = useUser();
 
   const [paymentHistory, setPaymentHistory] = useState<TpaymentHistory[] | []>(
     []

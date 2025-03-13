@@ -17,8 +17,8 @@ export const getAllTutors = async (params: string) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 export const getAllTutorsProfileTestimonialService = async () => {
@@ -35,8 +35,8 @@ export const getAllTutorsProfileTestimonialService = async () => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 export const getAllBookingReq = async (params: string) => {
@@ -55,8 +55,8 @@ export const getAllBookingReq = async (params: string) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -79,8 +79,8 @@ export const createBookingRequestService = async (
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -103,7 +103,7 @@ export const createAcceptBookingRequestService = async (
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };

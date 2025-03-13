@@ -14,7 +14,7 @@ export const getNewsItemsService = async (value: string) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };

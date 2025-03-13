@@ -23,8 +23,8 @@ export const registerUser = async (userData: FieldTypeRegister) => {
     }
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -44,8 +44,8 @@ export const loginUser = async (userData: FieldTypeLogin) => {
     }
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -79,8 +79,8 @@ export const updateCurrentUser = async (id: string) => {
     }
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -104,8 +104,8 @@ export const updateTutorProfile = async (profileData: ProfileDetail) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -129,8 +129,8 @@ export const getProfileDetail = async (id: string) => {
     const result = await res.json();
 
     return result;
-  } catch (err: any) {
-    return Error(err);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -150,8 +150,8 @@ export const getTutorProfileDetail = async (id: string) => {
     const result = await res.json();
 
     return result;
-  } catch (err: any) {
-    return Error(err);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -180,8 +180,8 @@ export const updateStudentProfile = async (profileData: ProfileDetail) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -199,7 +199,7 @@ export const getNewToken = async () => {
     );
 
     return res.json();
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };

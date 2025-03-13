@@ -5,14 +5,14 @@ import { useUser } from '@/context/UserContext';
 import '../../assets/TotalEarning.css';
 import '@/../../assets/root.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 
 export default function TutorEarning() {
-  let { user, setIsLoading, profileDetail } = useUser();
+  const { setIsLoading, profileDetail } = useUser();
   useEffect(() => {
     setIsLoading(true);
-  }, []);
+  }, [setIsLoading]);
 
   return (
     <>

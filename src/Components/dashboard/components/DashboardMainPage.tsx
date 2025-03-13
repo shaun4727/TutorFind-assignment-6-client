@@ -4,7 +4,6 @@ import ProfileManagement from './subcomponents/ManageProfileTutor';
 import ProfileManagementStudent from './subcomponents/ManageProfileStudent';
 import BookingRequests from './subcomponents/BookingRequests';
 import { tutorBookingData } from '@/types';
-import { useEffect } from 'react';
 import TutorAcceptance from './subcomponents/TutorAcceptance';
 import PastBookings from './subcomponents/PastBookings';
 import PaymentHistory from './subcomponents/PaymentHistory';

@@ -2,7 +2,6 @@
 
 import { getValidToken } from '@/lib/verifyToken';
 import { bookingPaymentDuration } from '@/types/Dashboard/AcceptanceTutor';
-import { PaymentData } from '@/types/Dashboard/MakePayment';
 import { TTutor } from '@/types/Dashboard/StudentDashboard';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -23,8 +22,8 @@ export const getAcceptedBookingService = async () => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -45,8 +44,8 @@ export const createPaymentService = async (data: bookingPaymentDuration) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -66,8 +65,8 @@ export const makePaymentVerifyService = async (order_id: string) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -87,8 +86,8 @@ export const getPastBookingsService = async () => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -108,8 +107,8 @@ export const getPaymentHistoryService = async () => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -130,8 +129,8 @@ export const getTutorProfileDetailService = async (id: string) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -153,8 +152,8 @@ export const uploadProfileImgService = async (url: { url: string }) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -176,7 +175,7 @@ export const updateTutorRatingService = async (rating: TTutor) => {
     const result = await res.json();
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    console.log(error);
   }
 };

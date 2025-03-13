@@ -15,20 +15,19 @@ import {
   FormProps,
   Input,
   Row,
-  Space,
   Table,
   TableProps,
   Tag,
 } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { TAcceptBookingRequest } from '@/types';
 import { bookingPaymentDuration } from '@/types/Dashboard/AcceptanceTutor';
 import { createPaymentService } from '@/services/DashboardService/StudentService';
 
 export default function TutorAcceptance() {
-  let { user, setIsLoading, profileDetail } = useUser();
-  let { acceptedBookingRequest, setIsDashboardLoading } = useDashboard();
+  const { user, profileDetail } = useUser();
+  const { acceptedBookingRequest } = useDashboard();
   const [open, setOpen] = useState<boolean>(false);
   const [form] = Form.useForm<bookingPaymentDuration>(undefined);
   const [bookingReq, setBookingReq] = useState<
@@ -123,8 +122,9 @@ export default function TutorAcceptance() {
           toast.error(res?.message, { id: toastId });
           console.log(res);
         }
-      } catch (err: any) {
-        toast.error(err?.message, { id: toastId });
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'An unknown error';
+        toast.error(message, { id: toastId });
         console.log(err);
       }
     };

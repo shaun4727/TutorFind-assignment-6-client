@@ -3,11 +3,7 @@ import {
   getProfileDetail,
   getTutorProfileDetail,
 } from '@/services/AuthService';
-import {
-  FieldTypeRegister,
-  ProfileDetail,
-  ProfileDetailStudent,
-} from '@/types';
+import { FieldTypeRegister, ProfileDetail } from '@/types';
 import {
   createContext,
   Dispatch,

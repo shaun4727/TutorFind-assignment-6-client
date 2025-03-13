@@ -27,12 +27,12 @@ import {
 import { TpaymentHistory } from '@/types/Dashboard/PaymentHistory';
 import { TTutor } from '@/types/Dashboard/StudentDashboard';
 import { toast } from 'sonner';
-import { TTutorProfileDtl, Tutor } from '@/types';
+import { TTutorProfileDtl } from '@/types';
 
 const { TextArea } = Input;
 
 export default function ReviewTutors() {
-  let { user, setIsLoading, profileDetail } = useUser();
+  const { user } = useUser();
 
   const [paymentHistory, setPaymentHistory] = useState<TpaymentHistory[] | []>(
     []
@@ -122,8 +122,9 @@ export default function ReviewTutors() {
         toast.error(res?.message, { id: toastId });
         console.log(res);
       }
-    } catch (err: any) {
-      toast.error(err?.message, { id: toastId });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'An unknown error';
+      toast.error(message, { id: toastId });
       console.log(err);
     }
   };
