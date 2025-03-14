@@ -64,6 +64,13 @@ export default function ReviewTutors() {
     setOpen(true);
   };
 
+  useEffect(() => {
+    form.setFieldsValue({
+      rate: tutorProfileDtl?.rating?.rate,
+      review: tutorProfileDtl?.rating?.review,
+    });
+  }, [tutorProfileDtl, form]);
+
   const columns: TableProps<TpaymentHistory>['columns'] = [
     {
       title: 'Tutor',
@@ -165,10 +172,6 @@ export default function ReviewTutors() {
           className="book-tutor-detail"
           name="basic"
           form={form}
-          initialValues={{
-            rate: tutorProfileDtl?.rating?.rate,
-            review: tutorProfileDtl?.rating?.review,
-          }}
           onFinish={onRatingTheTutor}
           autoComplete="off"
         >
