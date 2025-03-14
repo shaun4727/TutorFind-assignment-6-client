@@ -34,6 +34,7 @@ export default function NavBar() {
 
     if (e.key == 'logout') {
       setIsLoading(true);
+
       logout();
       router.push('/');
     } else {

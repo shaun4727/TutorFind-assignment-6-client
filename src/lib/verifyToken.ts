@@ -25,8 +25,9 @@ export const getValidToken = async (): Promise<string> => {
     cookieStore.get('TutorAccessToken')!.value;
 
   if (!token || (await isTokenExpired(token))) {
-    const { data } = await getNewToken();
-    token = data?.accessToken;
+    const data = await getNewToken();
+    token = data?.data?.accessToken;
+
     if (token) {
       cookieStore.set('TutorAccessToken', token);
     }

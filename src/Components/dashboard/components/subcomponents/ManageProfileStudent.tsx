@@ -40,7 +40,6 @@ export default function ProfileManagementStudent() {
   }, [user, form]);
 
   const updateProfile = () => {
-    console.log('aa');
     form.setFieldsValue(profileData);
     setUpdateProfileMode(true);
   };

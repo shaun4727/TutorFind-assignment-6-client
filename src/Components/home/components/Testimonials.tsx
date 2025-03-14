@@ -21,8 +21,6 @@ export default function Testimonials() {
     getTutorsList();
   }, []);
 
-  console.log(tutorsList);
-
   return (
     <div className="testimonial-section">
       <Row gutter={[16, 16]} className="tutor-row">

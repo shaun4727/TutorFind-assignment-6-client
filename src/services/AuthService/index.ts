@@ -39,8 +39,10 @@ export const loginUser = async (userData: FieldTypeLogin) => {
     });
 
     const result = await res.json();
+    console.log(result);
     if (result.success) {
       (await cookies()).set('TutorAccessToken', result.data.token);
+      (await cookies()).set('TutorRefreshToken', result.data.refreshToken);
     }
 
     return result;
@@ -115,6 +117,7 @@ export const updateTutorProfile = async (profileData: ProfileDetail) => {
 
 export const getProfileDetail = async (id: string) => {
   const token = await getValidToken();
+  console.log(token, 'a');
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/student/student-profile-detail/${id}`,
@@ -157,6 +160,7 @@ export const getTutorProfileDetail = async (id: string) => {
 
 export const logout = async () => {
   (await cookies()).delete('TutorAccessToken');
+  (await cookies()).delete('TutorRefreshToken');
 };
 
 /**
@@ -193,12 +197,12 @@ export const getNewToken = async () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${(await cookies()).get('refreshToken')!.value}`,
+          Authorization: `Bearer ${(await cookies()).get('TutorRefreshToken')!.value}`,
         },
       }
     );
 
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.log(error);
   }

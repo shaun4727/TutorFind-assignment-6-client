@@ -18,7 +18,7 @@ export default function DashboardMainComponent() {
     const gettingBookings = async () => {
       try {
         const res = await getAllBookingReq(user?.userId as string);
-        setBookings(res.data || []);
+        setBookings(res?.data || []);
       } catch (err) {
         console.log(err);
       }
