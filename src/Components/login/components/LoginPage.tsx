@@ -35,8 +35,7 @@ export default function LoginPage() {
         toast.error(res?.message, { id: toastId });
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'An unknown error';
-      toast.error(message, { id: toastId });
+      toast.error(err as string, { id: toastId });
     }
   };
   return (
