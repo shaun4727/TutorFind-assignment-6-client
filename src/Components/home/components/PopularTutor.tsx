@@ -14,52 +14,54 @@ export default function PopularTutors() {
   const [tutorsForSmallerScreen, setSmallerTutors] = useState<allTutors[]>();
 
   const getTutorsFunc = async () => {
-    const result = await getAllTutors('');
+    const res = await getAllTutors('');
 
+    const result = res.data?.slice(0, 8);
     const largerDeviceCount = 4;
     const mediumDeviceCount = 3;
     const smallerDeviceCount = 2;
     // for larger devices
     const filteredTutorsForLargerScreen = Array.from(
-      { length: Math.ceil(result.data.length / largerDeviceCount) },
+      { length: Math.ceil(result.length / largerDeviceCount) },
       (_, index) => index + 1
-    ).map((item, index) => {
+    ).map((_, index) => {
       const count = index * largerDeviceCount;
-      return result.data.slice(
+      return result.slice(
         index * largerDeviceCount,
-        count + largerDeviceCount <= result.data.length
+        count + largerDeviceCount <= result.length
           ? count + largerDeviceCount
-          : result.data.length - count
+          : result.length
       );
     });
+
     setTutors(filteredTutorsForLargerScreen);
 
     // for medium devices
     const filteredTutorsForMediumScreen = Array.from(
-      { length: Math.ceil(result.data.length / mediumDeviceCount) },
+      { length: Math.ceil(result.length / mediumDeviceCount) },
       (_, index) => index + 1
-    ).map((item, index) => {
+    ).map((_, index) => {
       const count = index * mediumDeviceCount;
-      return result.data.slice(
+      return result.slice(
         index * mediumDeviceCount,
-        count + mediumDeviceCount <= result.data.length
+        count + mediumDeviceCount <= result.length
           ? count + mediumDeviceCount
-          : result.data.length - count
+          : result.length
       );
     });
     setMediumTutors(filteredTutorsForMediumScreen);
 
     // for smaller devices
     const filteredTutorsForSmallerScreen = Array.from(
-      { length: Math.ceil(result.data.length / smallerDeviceCount) },
+      { length: Math.ceil(result.length / smallerDeviceCount) },
       (_, index) => index + 1
-    ).map((item, index) => {
+    ).map((_, index) => {
       const count = index * smallerDeviceCount;
-      return result.data.slice(
+      return result.slice(
         index * smallerDeviceCount,
-        count + smallerDeviceCount <= result.data.length
+        count + smallerDeviceCount <= result.length
           ? count + smallerDeviceCount
-          : result.data.length - count
+          : result.length
       );
     });
     setSmallerTutors(filteredTutorsForSmallerScreen);

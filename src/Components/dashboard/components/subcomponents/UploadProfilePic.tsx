@@ -23,7 +23,6 @@ export default function UploadProfileImage() {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       setImgLoading(false);
-      console.log(info.file);
       const data = new FormData();
       data.append('file', info.file.originFileObj as File);
       data.append(

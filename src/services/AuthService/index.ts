@@ -117,7 +117,6 @@ export const updateTutorProfile = async (profileData: ProfileDetail) => {
 
 export const getProfileDetail = async (id: string) => {
   const token = await getValidToken();
-  console.log(token, 'a');
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/student/student-profile-detail/${id}`,
